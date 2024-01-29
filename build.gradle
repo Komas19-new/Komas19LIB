@@ -1,0 +1,71 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+group = 'xyz.komas19'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "papermc-repo"
+        url = "https://repo.papermc.io/repository/maven-public/"
+    }
+    maven {
+        name = "sonatype"
+        url = "https://oss.sonatype.org/content/groups/public/"
+    }
+}
+
+dependencies {
+    compileOnly "com.destroystokyo.paper:paper-api:1.12-R0.1-SNAPSHOT"
+    implementation 'org.sonatype.central:central-publishing-maven-plugin:0.3.0'
+}
+
+def targetJavaVersion = 8
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release = targetJavaVersion
+    }
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('paper-plugin.yml') {
+        expand props
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            groupId = group
+            artifactId = 'your-artifact-id' // Replace with your artifact ID
+            version = project.version
+        }
+    }
+    repositories {
+        maven {
+            // URL of your Maven repository
+            url = uri('https://your-maven-repo-url/')
+            // If authentication is required
+            credentials {
+                username = 'your-username'
+                password = 'your-password'
+            }
+        }
+    }
+}

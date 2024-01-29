@@ -1,0 +1,6 @@
+name: Komas19LIB
+version: '${version}'
+main: xyz.komas19.komas19lib.Komas19LIB
+load: STARTUP
+authors: [Komas19]
+description: An library for minecraft plugin development
