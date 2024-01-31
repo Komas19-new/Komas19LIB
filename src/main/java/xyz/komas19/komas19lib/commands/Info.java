@@ -20,7 +20,7 @@ public class Info implements CommandExecutor {
     public String motd = Bukkit.getMotd();
     public String bukkitversion = Bukkit.getBukkitVersion();
     public String servername = Bukkit.getServerName();
-    public double[] tps = Bukkit.getTPS();
+    public String tps = Arrays.toString(Bukkit.getTPS());
     public String pluginversion = Bukkit.getPluginManager().getPlugin("Komas19LIB").getDescription().getVersion();
     public String pluginapiversion = Bukkit.getPluginManager().getPlugin("Komas19LIB").getDescription().getAPIVersion();
     @Override

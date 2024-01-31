@@ -6,7 +6,7 @@ authors: [Komas19]
 description: An library for minecraft plugin development
 api-version: 1.20
 commands:
-  komas19lib.info:
+  info:
     description: Shows information about the server/plugin.
     permission: komas19lib.info
 permissions:
