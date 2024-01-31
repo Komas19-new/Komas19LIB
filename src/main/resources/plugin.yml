@@ -1,6 +1,7 @@
 name: Komas19LIB
-version: '${version}'
+version: 1.0.2
 main: xyz.komas19.komas19lib.Komas19LIB
 load: STARTUP
 authors: [Komas19]
 description: An library for minecraft plugin development
+api-version: 1.20

@@ -1,29 +1,36 @@
 plugins {
     id 'java'
-    id 'maven-publish'
+    // id 'maven-publish'
 }
 
 group = 'xyz.komas19'
-version = '1.0-SNAPSHOT'
+version = '1.0.2'
 
 repositories {
     mavenCentral()
     maven {
-        name = "papermc-repo"
-        url = "https://repo.papermc.io/repository/maven-public/"
+        url "https://repo.purpurmc.org/snapshots"
     }
+    /*
     maven {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
+     */
+}
+
+// Define the sources JAR task
+task sourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from sourceSets.main.allSource
 }
 
 dependencies {
-    compileOnly "com.destroystokyo.paper:paper-api:1.12-R0.1-SNAPSHOT"
-    implementation 'org.sonatype.central:central-publishing-maven-plugin:0.3.0'
+    implementation "org.purpurmc.purpur:purpur-api:1.20.4-R0.1-SNAPSHOT"
+    // implementation 'org.sonatype.central:central-publishing-maven-plugin:0.3.0'
 }
 
-def targetJavaVersion = 8
+def targetJavaVersion = 17
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
@@ -43,10 +50,12 @@ processResources {
     def props = [version: version]
     inputs.properties props
     filteringCharset 'UTF-8'
-    filesMatching('paper-plugin.yml') {
+    filesMatching('plugin.yml') {
         expand props
     }
 }
+/*
+def serverCredentials = new XmlSlurper().parse(file('settings.xml'))
 
 publishing {
     publications {
@@ -59,13 +68,14 @@ publishing {
     }
     repositories {
         maven {
-            // URL of your Maven repository
-            url = uri('https://your-maven-repo-url/')
-            // If authentication is required
+            // Repository URL
+            url = uri('https://repo.maven.apache.org/maven2')
+            // Server ID
             credentials {
-                username = 'your-username'
-                password = 'your-password'
+                username = serverCredentials.username
+                password = serverCredentials.password
             }
         }
     }
 }
+ */
