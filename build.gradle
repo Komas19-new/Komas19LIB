@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'xyz.komas19'
-version = '1.0.3'
+version = '1.0.4'
 
 repositories {
     mavenCentral()
@@ -27,6 +27,7 @@ task sourcesJar(type: Jar) {
 
 dependencies {
     implementation "org.purpurmc.purpur:purpur-api:1.20.4-R0.1-SNAPSHOT"
+    implementation "org.projectlombok:lombok:1.18.28"
     // implementation 'org.sonatype.central:central-publishing-maven-plugin:0.3.0'
 }
 
